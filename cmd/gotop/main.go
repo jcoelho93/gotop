@@ -1,15 +1,22 @@
 package main
 
 import (
-	"github.com/jcoelho93/gotop/internal/uptime"
+	"fmt"
+	"gotop/internal/pkg/display"
+	"time"
 )
 
 func main() {
-	uptimeReader := uptime.NewUptimeReader("/proc/uptime")
-	uptime, err := uptimeReader.Read()
-	if err != nil {
-		panic(err)
+	fmt.Println("Starting gotop...")
+
+	topDisplay := display.Top{}
+
+	for {
+		err := topDisplay.Display()
+		if err != nil {
+			fmt.Println("Error displaying stats:", err)
+			return
+		}
+		time.Sleep(time.Second)
 	}
-	println("Uptime in seconds:", uptime.Seconds)
-	println("Idle time in seconds:", uptime.Idle)
 }

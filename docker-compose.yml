@@ -1,0 +1,8 @@
+services:
+  top:
+    build:
+      context: .
+    command: go run ./cmd/gotop
+    working_dir: /workspace
+    volumes:
+      - .:/workspace
